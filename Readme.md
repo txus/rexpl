@@ -12,7 +12,7 @@ the Rubinius VM for the first time.
 Its main feature is **stack introspection**, which means you can inspect
 what the stack looks like after each step of your instruction set.
 
-![Rexpl](screenshot.png)
+![Rexpl](https://github.com/txus/rexpl/blob/master/screenshot.png)
 
 ## How to use it?
 
@@ -67,4 +67,3 @@ Documentation is online here:
 ## Copyright
 
 Copyright (c) 2010 Josep M. Bach. See LICENSE for details.
-
