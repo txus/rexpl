@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "ansi"
   s.add_development_dependency "minitest"
+  s.add_development_dependency "mocha"
   s.add_development_dependency 'yard'
   s.add_development_dependency 'bluecloth'
 
