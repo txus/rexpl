@@ -1,46 +1,82 @@
 module Rexpl
+  # This class acts as a Proxy between the user and an actual Generator.
+  #
   class GeneratorProxy
     protected_methods = %w(class to_s inspect instance_eval tainted?)
-    instance_methods.each { |method| undef_method method unless method.to_s =~ /^_/ || protected_methods.include?(method.to_s)}
+    # Undefine every method so that this class acts as an actual proxy.
+    instance_methods.each do |method|
+      unless method.to_s =~ /^_/ || protected_methods.include?(method.to_s)
+        undef_method method
+      end
+    end
+
     attr_accessor :instructions
 
+    # Initializes a new {GeneratorProxy} instance with an empty instruction
+    # set.
     def initialize
       @instructions = []
     end
 
+    # Swallows every message passed onto the instance and stores it in the
+    # instruction set.
+    def method_missing(method, *args)
+      @instructions << [method, *args]
+      nil
+    end
+
+    # Applies the set of instructions to an actual generator.
+    #
+    # It captures errors in case an instruction is unknown or called with wrong
+    # arguments.
+    #
+    # @param [Rubinius::Generator] generator the generator onto which apply the
+    #   instructions.
+    #
+    # @example
+    #
+    #   proxy = Rexpl::GeneratorProxy.new
+    #   proxy.push 83
+    #   proxy.push_literal 'bar'
+    #
+    #   dynamic_method(:foo) do |g|
+    #     proxy.visit(g)
+    #     g.ret
+    #   end
+    #     
+    def visit(generator)
+      last_instruction = nil
+      begin
+        @instructions.each do |instruction|
+          last_instruction = instruction
+          generator.__send__ *instruction
+        end
+      rescue NameError, ArgumentError=>e
+        puts "[ERROR]: #{e}"
+        @instructions.delete(last_instruction)
+      end
+    end
+
+    # Empties the instruction set.
     def reset
-      puts 'Reseted!'
+      Output.print_reset
       initialize
     end
 
+    # Prints a list of the current instruction set.
     def list
       puts
       @instructions.each_with_index do |instruction, idx|
-        puts "[#{idx}]: #{instruction.first} #{instruction[1..-1].map(&:inspect)}"
+        Output.print_instruction instruction, idx
       end
       puts
     end
 
+    # Visually represents the state of the stack after each instruction is ran.
     def draw
-
       instructions = @instructions.dup
       klass = Class.new do
-        def print_stack(arr)
-          puts "\n\t#{'Current stack'.center(25, ' ')}"
-          puts "\t-------------------------" 
-          arr.reverse.each do |element|
-            puts "\t|#{element.inspect.center(23, ' ')}|"
-            puts "\t-------------------------" 
-          end
-          puts "\n"
-          nil
-        end
         dynamic_method(:draw) do |g|
-
-          g.push :self
-          g.push_literal "\n"
-          g.send :puts, 1, true
-          g.pop
 
           instructions.each_with_index do |instruction, idx|
             # Execute the instruction
@@ -55,15 +91,15 @@ module Rexpl
               verb = 'consumed'
               produced = produced.abs
             end
-
             g.push_self
             g.push_literal "[#{idx}] [#{instruction.first} #{instruction[1..-1].map(&:inspect).join(', ')}] #{verb} #{produced} stack, size is now #{after}"
             g.send :puts, 1, true
             g.pop
 
-            # Print the entire stack
+            # Visually print the entire stack
             g.return_stack
-            g.push_self
+            g.push_const :Rexpl
+            g.find_const :Output
             g.swap_stack
             g.send :print_stack, 1, true
             g.pop
@@ -75,25 +111,6 @@ module Rexpl
       end
 
       klass.new.draw
-    end
-
-    def method_missing(m, *args)
-      @instructions << [m, *args]
-      nil
-    end
-
-    def visit(generator)
-      last_instruction = nil
-      begin
-        @instructions.each do |instruction|
-          last_instruction = instruction
-          generator.__send__ *instruction
-        end
-      rescue NameError, ArgumentError=>e
-        puts "[ERROR]: #{e}"
-        @instructions.delete(last_instruction)
-      end
-      !!@instructions.any?
     end
   end
 end

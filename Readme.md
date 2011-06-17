@@ -5,17 +5,21 @@ Virtual Machine and its bytecode instructions. It comes wrapped in a REPL
 (Read-Eval-Print Loop) à la IRB, so that anytime you can open a terminal,
 fire up **rexpl**, and start playing with instant feedback.
 
+This intends to be a fun tool to use when learning how to use Rubinius
+bytecode instructions, for example when bootstraping a new language targeting
+the Rubinius VM for the first time.
+
 Its main feature is **stack introspection**, which means you can inspect
 what the stack looks like after each step of your instruction set.
 
 ## How to use it?
 
 Needless to say, **rexpl** runs only on Rubinius. Thus, your first step is to
-install it. Go to the [rubinius website](http://rubini.us) to find how, or if
+install it. Go to the [Rubinius website](http://rubini.us) to find how, or if
 you are using RVM, just follow [this instructions](http://beginrescueend.com/interpreters/rbx/).
 
-  $ gem install rexpl
-  $ rexpl
+    $ gem install rexpl
+    $ rexpl
 
 Now you should see a welcome banner and an IRB-like prompt, and you're good to
 go! Just start typing some [VM instructions](http://rubini.us/doc/en/virtual-machine/instructions/)

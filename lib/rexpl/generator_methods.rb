@@ -5,20 +5,18 @@ module Rexpl
   module GeneratorMethods
     # Prints the topmost element on the stack and the stack's current size.
     #
-    # Calling #show_stack neither consumes nor produces stack, it's just used
+    # Calling this method neither consumes nor produces stack, it's just used
     # for debugging the current state.
-    #
-    # @param [String] name an optional label to print out, to make debugging
-    #   easier.
-    def show_stack(name = nil)
+    def print_debug_info
+      initial_size = size
       dup
-      push :self
+      push_const :Rexpl
+      find_const :Output
       swap_stack
       send :inspect, 0, true
-      push_literal "[#{name || 'DEBUG'}] [STACK SIZE: #{size}]: "
+      push_literal initial_size
       swap_stack
-      push_literal "\n"
-      send :print, 3, true 
+      send :print_debug_info, 2, true 
       pop
     end
 
