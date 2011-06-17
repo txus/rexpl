@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Josep M. Bach"]
   s.email       = ["josep.m.bach@gmail.com"]
   s.homepage    = "http://github.com/txus/rexpl"
-  s.summary     = %q{Rexpl is an interactive bytecode REPL for Rubinius}
-  s.description = %q{Rexpl is an interactive bytecode REPL for Rubinius}
+  s.summary     = %q{Rexpl is an interactive bytecode console for Rubinius}
+  s.description = %q{Rexpl is an interactive bytecode console for Rubinius}
 
   s.rubyforge_project = "rexpl"
 
