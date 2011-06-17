@@ -14,6 +14,11 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "rexpl"
 
+  s.add_runtime_dependency "ansi"
+  s.add_development_dependency "minitest"
+  s.add_development_dependency 'yard'
+  s.add_development_dependency 'bluecloth'
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

@@ -13,6 +13,8 @@
 module Rexpl
 end
 
+require 'rexpl/version'
 require 'rexpl/generator_proxy'
 require 'rexpl/generator_methods'
+require 'rexpl/output'
 require 'rexpl/environment'
