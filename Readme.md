@@ -12,6 +12,8 @@ the Rubinius VM for the first time.
 Its main feature is **stack introspection**, which means you can inspect
 what the stack looks like after each step of your instruction set.
 
+![Rexpl](http://www.cl.ly/7hWr.jpg)
+
 ## How to use it?
 
 Needless to say, **rexpl** runs only on Rubinius. Thus, your first step is to
