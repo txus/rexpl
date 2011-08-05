@@ -1,3 +1,4 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 rvm:
+  - rbx
   - rbx-2.0
