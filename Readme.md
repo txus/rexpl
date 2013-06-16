@@ -47,24 +47,10 @@ Read through the source code, and knowing what each instruction does, try to
 follow along and draw what the stack looks like at each step (does that sound
 familiar to you?). Or just fire up **rexpl**.
 
-## Resources
+## Who's this
 
-Documentation is online here:
+This was made by [Josep M. Bach (Txus)](http://txustice.me) under the MIT
+license. I'm [@txustice][twitter] on twitter (where you should probably follow
+me!).
 
-* [Rexpl documentation](http://rdoc.info/github/txus/rexpl/master/frames)
-
-##Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  If you want to have your own version, that is fine but bump version
-  in a commit by itself I can ignore when I pull.
-* Send me a pull request. Bonus points for topic branches.
-
-## Copyright
-
-Copyright (c) 2010 Josep M. Bach. See LICENSE for details.
-
+[twitter]: https://twitter.com/txustice
