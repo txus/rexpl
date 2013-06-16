@@ -1,4 +1,4 @@
-# rexpl
+# rexpl [![Build Status](https://secure.travis-ci.org/txus/rexpl.png)](http://travis-ci.org/txus/rexpl)
 
 **rexpl** is a sandbox to experiment and play with the [Rubinius](http:://rubini.us)
 Virtual Machine and its bytecode instructions. It comes wrapped in a REPL
