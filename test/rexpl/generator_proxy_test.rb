@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class GeneratorProxyTest < MiniTest::Unit::TestCase
-
   def setup
+    $stdout = StringIO.new
     @proxy = Rexpl::GeneratorProxy.new
   end
 
@@ -61,4 +61,7 @@ class GeneratorProxyTest < MiniTest::Unit::TestCase
     @proxy.draw
   end
 
+  def teardown
+    $stdout = STDOUT
+  end
 end

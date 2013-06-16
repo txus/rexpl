@@ -1,3 +1,4 @@
 #!/usr/bin/env rbx
+$: << 'lib'
 require 'rexpl'
 Rexpl::Environment.run
